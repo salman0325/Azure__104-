@@ -1,24 +1,36 @@
-☁️ 1. Azure Certification Path (Simple Roadmap)
+# ☁️ 1. Azure Certification Path (Simple Roadmap)
 
-🔰 Beginner (Fundamental)
-AZ-900 (Azure Fundamentals)
+## 🔰 Beginner (Fundamental)
+
+**AZ-900 (Azure Fundamentals)**
 👉 Basic cloud concepts (must start here)
 
-🧑‍💻 Associate Level
-AZ-104 → Azure Administrator
-AZ-204 → Azure Developer
-AZ-500 → Azure Security Engineer
-AZ-700 → Azure Network Engineer
+---
 
-🧠 Expert Level
-AZ-400 → DevOps Engineer
-AZ-305 → Solutions Architect
+## 🧑‍💻 Associate Level
 
-📝 Exam Pattern
-MCQs: 40–65 questions
-Total Marks: 1000
-Passing Marks: 700
-Cost: ~$165 USD
+* **AZ-104** → Azure Administrator
+* **AZ-204** → Azure Developer
+* **AZ-500** → Azure Security Engineer
+* **AZ-700** → Azure Network Engineer
+
+---
+
+## 🧠 Expert Level
+
+* **AZ-400** → DevOps Engineer
+* **AZ-305** → Solutions Architect
+
+---
+
+## 📝 Exam Pattern
+
+* MCQs: **40–65 questions**
+* Total Marks: **1000**
+* Passing Marks: **700**
+* Cost: **~$165 USD**
+
+
 
 # ☁️ 1. CLOUD FUNDAMENTALS (Interview Style)
 
