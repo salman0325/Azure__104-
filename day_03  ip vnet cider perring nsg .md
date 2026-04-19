@@ -1,6 +1,3 @@
-Theek hai 👍 — main tumhara content **clean English + proper definitions + examples** mein rewrite kar raha hoon, aur **lab skip** kar raha hoon jaise tum ne bola.
-
----
 
 # 🔥 1. IP Address
 
