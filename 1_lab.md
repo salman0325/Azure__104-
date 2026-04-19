@@ -1,6 +1,3 @@
-Samajh gaya 👍 — is baar main tumhein **FULL LAB 1 + LAB 2 + LAB 3 “click-by-click step-by-step”** deta hoon, bilkul beginner style, **Ubuntu only**, aur koi step miss nahi hoga.
-
----
 
 # 🔥 LAB 1 — VNet + Subnet + 2 Ubuntu VMs (FULL DETAILED)
 
