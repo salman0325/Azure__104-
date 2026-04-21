@@ -361,3 +361,293 @@ ping vm-prod.devops.internal
 ✔ All should work
 
 
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+LAB. 2 
+
+🔹 🔧 TASK 1: Create Infrastructure (3 VMs + 3 VNets)
+
+✅ Step 1: Login to Azure
+
+1. Go to 👉 Microsoft Azure Portal
+
+
+2. Sign in
+
+
+
+
+---
+
+✅ Step 2: Create Resource Group
+
+1. Click ☰ Menu (top left)
+
+
+2. Click Resource groups
+
+
+3. Click + Create
+
+
+4. Fill:
+
+Name: RG-Network-Lab
+
+Region: East US
+
+
+
+5. Click Review + Create → Create
+
+
+
+
+---
+
+✅ Step 3: Create First VNet (New York)
+
+1. Search Virtual Networks
+
+
+2. Click + Create
+
+
+3. Fill:
+
+Resource group: RG-Network-Lab
+
+Name: VNet-NewYork
+
+Region: East US
+
+
+
+4. IP tab:
+
+Address space: 10.0.0.0/16
+
+Subnet: 10.0.1.0/24
+
+
+
+5. Click Review + Create → Create
+
+
+
+
+---
+
+✅ Step 4: Create Second VNet (Boston - same region)
+
+Repeat same steps:
+
+Name: VNet-Boston
+
+Region: East US
+
+Address: 10.1.0.0/16
+
+Subnet: 10.1.1.0/24
+
+
+
+---
+
+✅ Step 5: Create Third VNet (Seattle - different region)
+
+Name: VNet-Seattle
+
+Region: West US
+
+Address: 10.2.0.0/16
+
+Subnet: 10.2.1.0/24
+
+
+
+---
+
+✅ Step 6: Create Virtual Machines (3 VMs)
+
+👉 Go to Virtual Machines → + Create
+
+VM1 (New York)
+
+Name: VM-NewYork
+
+Region: East US
+
+VNet: VNet-NewYork
+
+Subnet: default
+
+Image: Ubuntu
+
+Username/password set karo
+
+Click Review + Create → Create
+
+
+
+---
+
+VM2 (Boston)
+
+Name: VM-Boston
+
+Region: East US
+
+VNet: VNet-Boston
+
+
+
+---
+
+VM3 (Seattle)
+
+Name: VM-Seattle
+
+Region: West US
+
+VNet: VNet-Seattle
+
+
+
+---
+
+🔹 🔗 TASK 2: VNet Peering
+
+✅ Step 7: Local Peering (Same Region)
+
+👉 Go to VNet-NewYork
+
+1. Left menu → Peerings
+
+
+2. Click + Add
+
+
+
+Fill:
+
+Peering name: NY-to-Boston
+
+Remote VNet: VNet-Boston
+
+Allow traffic: ✅ Enabled
+
+
+Click Add
+
+
+---
+
+👉 Now repeat from Boston side:
+
+Boston-to-NY
+
+
+
+---
+
+✅ Step 8: Global Peering (Different Region)
+
+👉 Go to VNet-NewYork
+
+Peering → + Add
+
+Name: NY-to-Seattle
+
+Remote: VNet-Seattle
+
+
+👉 Repeat from Seattle side:
+
+Seattle-to-NY
+
+
+
+---
+
+🔹 🌐 TASK 3: Test Connectivity
+
+✅ Step 9: Connect to VM
+
+1. Go to VM (example: VM-NewYork)
+
+
+2. Click Connect → SSH
+
+
+3. Copy command → run in terminal
+
+
+
+
+---
+
+✅ Step 10: Test Ping
+
+From VM-NewYork:
+
+ping <Private-IP-of-VM-Boston>
+ping <Private-IP-of-VM-Seattle>
+
+👉 Private IP check:
+
+VM → Networking → see private IP
+
+
+
+---
+
+❗ IMPORTANT (Common Error Fix)
+
+If ping not working:
+
+👉 Go to VM → Networking → NSG
+
+1. Click Inbound rules
+
+
+2. Click + Add
+
+
+3. Allow:
+
+Protocol: ICMP
+
+Action: Allow
+
+
+
+
+
+---
+
+🎯 FINAL RESULT
+
+✔ Same region (NY ↔ Boston) → working
+✔ Different region (NY ↔ Seattle) → working
+
+
+---
+
+💡 Interview Tip (IMPORTANT)
+
+If interviewer asks:
+
+👉 “What is VNet Peering?” 👉 Answer:
+
+> It connects two virtual networks so they can communicate using private IP without internet.
+
+
+
+
+---
+
+🔥 Now your turn (DevOps Question)
+
+👉 What is difference between VNet Peering and VPN Gateway?
