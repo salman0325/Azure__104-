@@ -2,27 +2,33 @@
 ✅ Pay-As-You-Go
 You pay only for what you use
 Good for testing or short-term work
+
 ✅ Reserved (1–3 years)
 You commit for long time
 Much cheaper
+
 ✅ Spot VM
 Very cheap
 Azure can stop it anytime
+
 🔷 2. VM Sizes & Types
 VM size means:
 CPU (power)
 RAM (memory)
+
 Common types:
 B-Series → cheap, small work
 D-Series → normal usage
 E-Series → high memory
 F-Series → high CPU
+
 🔷 3. Storage Types
 Disk types:
 Standard HDD → slow, cheap
 Standard SSD → better
 Premium SSD → fast
 Ultra Disk → very fast (expensive)
+
 🔷 4. VM Creation Options (Important)
 
 When creating VM:
@@ -35,15 +41,17 @@ Public IP → internet access
 NSG (Firewall) → allow ports like SSH (22)
 
 👉 Why check these?
-
 Security
 Cost control
 Performance
+
 🔷 5. Tiers (Basic / Standard / Premium)
 Basic → testing
 Standard → normal production
 Premium → high performance
+
 🔷 6. How to Connect to VM (3 ways)
+
 ✅ 1. Public IP
 Direct connection from internet
 
@@ -67,30 +75,34 @@ No public IP needed
 🔷 7. VM Troubleshooting (if not connecting)
 
 Check:
-
 VM is running
 Port 22/3389 open
 Correct IP
 Username/password
 Restart VM
+
 🔷 8. Azure Bastion
 Secure access using browser
 No need for public IP
+
 🔷 9. Azure Lock
 Protect resource
 
 Types:
-
 ReadOnly → cannot change
 Delete → cannot delete
+
 🔷 10. High Availability (HA)
 VM should stay running always
 No downtime
+
 🔷 11. Fault Tolerance
 System keeps working even if one part fails
+
 🔷 12. No Infrastructure Redundancy
 Only 1 VM
 If it fails → everything stops
+
 🔷 13. Availability Set
 
 Used to protect VMs
@@ -100,306 +112,163 @@ Fault Domain (FD) → different hardware
 Update Domain (UD) → update groups
 
 Example:
-
 FD = 2
 UD = 5
+
 🔷 14. Availability Zone
 Different physical data centers
 More protection
 
-
-
---------------------------------------------------------------------------------------------------------
-Got it 👍 — tumhein **full detailed lab chahiye with every click**, bilkul step-by-step, kuch bhi miss na ho. Main ab **Azure Portal GUI clicks + commands** dono ke sath complete flow deta hoon.
-
 ---
 
-# 🔥 LAB: Create Jumpbox + Private VM + Access (FULL STEPS)
+🔥 LAB: Create Jumpbox + Private VM + Access (FULL STEPS)
 
----
-
-# 🧪 PART 1: Login & Start
+🧪 PART 1: Login & Start
 
 1. Open browser
 2. Go to: [https://portal.azure.com](https://portal.azure.com)
 3. Login with your account
 
----
+🧪 PART 2: Create Resource Group
 
-# 🧪 PART 2: Create Resource Group
-
-1. Search: **Resource groups**
-2. Click **+ Create**
+1. Search: Resource groups
+2. Click + Create
 3. Fill:
+   Resource group name: rg-lab
+   Region: (choose nearest)
+4. Click Review + Create
+5. Click Create
 
-   * Resource group name: `rg-lab`
-   * Region: (choose nearest)
-4. Click **Review + Create**
-5. Click **Create**
+🧪 PART 3: Create Virtual Network
 
----
+1. Search: Virtual networks
+2. Click + Create
 
-# 🧪 PART 3: Create Virtual Network
+Basics tab:
+Resource group: rg-lab
+Name: vnet-lab
+Region: same
 
-1. Search: **Virtual networks**
-2. Click **+ Create**
+IP Addresses tab:
+Leave default (10.0.0.0/16)
 
-### Basics tab:
+Subnet:
+Name: subnet1
+Range: 10.0.0.0/24
 
-* Resource group: `rg-lab`
-* Name: `vnet-lab`
-* Region: same
+Click Review + Create → Create
 
-### IP Addresses tab:
+🧪 PART 4: Create Jumpbox VM
 
-* Leave default (10.0.0.0/16)
+1. Search: Virtual Machines
+2. Click + Create → Azure Virtual Machine
 
-### Subnet:
+Basics tab:
+Resource group: rg-lab
+VM name: jumpbox-server
+Region: same
+Image: Ubuntu Server 22.04
+Size: B1s
 
-* Name: `subnet1`
-* Range: 10.0.0.0/24
+Administrator account:
+Username: azureuser
+Authentication: Password or SSH
+Enter password
 
-Click **Review + Create → Create**
+Inbound ports:
+Allow SSH (22)
 
----
+Networking tab:
+Virtual network: vnet-lab
+Subnet: subnet1
+Public IP: Create new (Enable)
 
-# 🧪 PART 4: Create Jumpbox VM
+Click Review + Create → Create
 
-1. Search: **Virtual Machines**
-2. Click **+ Create → Azure Virtual Machine**
+🧪 PART 5: Create Private VM
 
-### Basics tab:
+Basics:
+Name: private-vm
+Same resource group
+Same region
+Same image
+Same size
 
-* Resource group: `rg-lab`
-* VM name: `jumpbox-server`
-* Region: same
-* Image: Ubuntu Server 22.04
-* Size: B1s (cheap)
+Networking tab:
+Virtual network: vnet-lab
+Subnet: subnet1
+Public IP: None (Disable)
 
-### Administrator account:
+Click Review + Create → Create
 
-* Username: `azureuser`
-* Authentication: Password or SSH
-* Enter password
+🧪 PART 6: Connect to Jumpbox
 
----
+Go to Virtual Machines
+Click jumpbox-server
+Click Connect → SSH
 
-### Inbound ports:
-
-* Select: **Allow SSH (22)**
-
----
-
-### Networking tab:
-
-* Virtual network: `vnet-lab`
-* Subnet: `subnet1`
-* Public IP: **Create new (Enable)**
-
----
-
-Click:
-👉 Review + Create
-👉 Create
-
-⏳ Wait for deployment
-
----
-
-# 🧪 PART 5: Create Private VM
-
-Repeat VM creation:
-
-### Basics:
-
-* Name: `private-vm`
-* Same resource group
-* Same region
-* Same image
-* Same size
-
----
-
-### Networking tab:
-
-* Virtual network: `vnet-lab`
-* Subnet: `subnet1`
-* Public IP: ❌ **None (Disable)**
-
----
-
-Click:
-👉 Review + Create
-👉 Create
-
----
-
-# 🧪 PART 6: Connect to Jumpbox
-
-1. Go to **Virtual Machines**
-2. Click `jumpbox-server`
-3. Click **Connect → SSH**
-4. Copy command
-
-Example:
-
-```bash id="c1"
+Command:
 ssh azureuser@<public-ip>
-```
 
----
+🧪 PART 7: Get Private VM IP
 
-# 🧪 PART 7: Get Private VM IP
+Open private-vm
+Go to Networking
+Copy Private IP (example: 10.0.0.5)
 
-1. Open `private-vm`
-2. Go to **Networking**
-3. Copy **Private IP** (example: 10.0.0.5)
-
----
-
-# 🧪 PART 8: Connect Private VM via Jumpbox
+🧪 PART 8: Connect Private VM via Jumpbox
 
 Inside jumpbox:
-
-```bash id="c2"
 ssh azureuser@10.0.0.5
-```
 
-✔ Done — now you are inside private VM
+✔ Done
 
----
-
-# 🔥 OPTIONAL (Important Real Step)
+🔥 OPTIONAL
 
 If SSH fails:
-
-### Install SSH client in jumpbox:
-
-```bash id="c3"
 sudo apt update
 sudo apt install openssh-client -y
-```
 
----
+🔷 TROUBLESHOOTING
 
-# 🔷 TROUBLESHOOTING
+Check NSG → port 22 allowed
+Check VM running
+Check correct IP
 
-If not connecting:
+🔷 AVAILABILITY SET LAB
 
-### Check NSG:
+Step 1: Create Availability Set
+Search Availability Sets → + Create
 
-1. Go to VM → Networking
-2. Ensure port 22 is allowed
+Name: avset-lab
+Resource group: rg-lab
+Fault Domains: 2
+Update Domains: 5
 
----
+Step 2: Create 2 VMs in Availability Set
+Select Availability Set → avset-lab
 
-### Check VM status:
+Create: vm1, vm2
 
-* Running hona chahiye
+Step 3: Verify
+Check different FD and UD
 
----
+🔷 AZURE BASTION
 
-### Check IP:
+Create Bastion
+Search Bastion → + Create
 
-* Public IP correct
-* Private IP correct
+Name: bastion-lab
+VNet: vnet-lab
+Public IP: create new
 
----
+Use Bastion
+Go to VM → Connect → Bastion
+Enter username/password
 
-# 🔷 AVAILABILITY SET LAB
+🔷 AZURE LOCK
 
----
+Go to VM → Locks → + Add
 
-## 🧪 Step 1: Create Availability Set
-
-1. Search: **Availability Sets**
-2. Click **+ Create**
-
-Fill:
-
-* Name: `avset-lab`
-* Resource group: `rg-lab`
-* Fault Domains: 2
-* Update Domains: 5
-
-Click:
-👉 Review + Create → Create
-
----
-
-## 🧪 Step 2: Create 2 VMs in Availability Set
-
-While creating VM:
-
-### Basics tab:
-
-* Availability options:
-  👉 Select: **Availability Set**
-  👉 Choose: `avset-lab`
-
-Create:
-
-* vm1
-* vm2
-
----
-
-## 🧪 Step 3: Verify
-
-1. Open both VMs
-2. Check:
-
-   * Different Fault Domain
-   * Different Update Domain
-
-✔ Means high availability working
-
----
-
-# 🔷 AZURE BASTION (Optional Lab)
-
----
-
-## 🧪 Create Bastion
-
-1. Search: **Bastion**
-2. Click **+ Create**
-
-Fill:
-
-* Name: `bastion-lab`
-* VNet: `vnet-lab`
-* Public IP: create new
-
-Click Create
-
----
-
-## 🧪 Use Bastion
-
-1. Go to VM
-2. Click **Connect → Bastion**
-3. Enter username/password
-4. Connect in browser
-
----
-
-# 🔷 AZURE LOCK
-
----
-
-## 🧪 Apply Lock
-
-1. Go to any VM
-2. Click **Locks**
-3. Click **+ Add**
-
-Choose:
-
-* Delete → cannot delete
-* ReadOnly → cannot modify
-
----
-
-
-
+Delete → cannot delete
+ReadOnly → cannot modify
