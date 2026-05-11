@@ -401,3 +401,13 @@ However, it also has disadvantages like internet dependency, security concerns, 
 
 AWS is the market leader with a wide range of services, while Azure is strong in enterprise environments and integrates well with Microsoft products.
 
+
+------------------------------------
+Azure
+Virtual Machines
+Entra ID
+AKS
+Blob Storage
+VNet
+Azure DevOps
+
